@@ -16,10 +16,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "mode"
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            dimension "mode"
+            buildConfigField "String", "SERVER_URL", "\"http://dev.myserver.com\""
+        }
+
+        beta {
+            applicationIdSuffix ".beta"
+            versionNameSuffix "-beta"
+            dimension "mode"
+            buildConfigField "String", "SERVER_URL", "\"http://beta.myserver.com\""
+        }
+        trial {
+            dimension "mode"
+            buildConfigField "String", "SERVER_URL", "\"http://trial.myserver.com\""
+        }
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
